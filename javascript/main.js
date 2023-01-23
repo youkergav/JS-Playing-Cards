@@ -32,6 +32,9 @@ function drawCard() {
         HAND.push(card);
         document.querySelector(".hand").appendChild(element);
 
+        let count = deck.querySelector(".count");
+        count.innerText = String(DECK.cards.length).padStart(2, '0');
+
         if (DECK.cards.length === 2) {
             deck.classList.remove("deck");
             deck.classList.add("deck-2");
