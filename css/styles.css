@@ -1,9 +1,17 @@
-body {
-    background-color: #005e00;
-    background-image: linear-gradient(94deg, rgba(31, 41, 31, 1) 0%, rgba(14, 66, 14, 1) 35%, rgba(0, 94, 0, 1) 100%);
+html {
+    height: 100%;
 }
 
-.hand {
+body {
+    height: 100%;
+    margin: 0;
+    background-color: #005e00;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background: linear-gradient(312deg, rgba(31, 41, 31, 1) 0%, rgba(14, 66, 14, 1) 35%, rgba(0, 94, 0, 1) 100%);
+}
+
+.table {
     display: block;
 }
 

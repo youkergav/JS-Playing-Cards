@@ -30,7 +30,7 @@ function drawCard() {
         element.addEventListener("click", flipCard);
 
         HAND.push(card);
-        document.querySelector(".hand").appendChild(element);
+        document.querySelector(".table").appendChild(element);
 
         let count = deck.querySelector(".count");
         count.innerText = String(DECK.cards.length).padStart(2, '0');
