@@ -13,8 +13,6 @@ class Card {
         card.dataset.id = this.id;
 
         if (this.faceup) {
-            card.classList.remove("back");
-
             let content = document.createElement("div");
             content.classList.add("content");
             content.classList.add(this.suit.Name.toLowerCase());
@@ -31,10 +29,11 @@ class Card {
 
             card.appendChild(content);
         } else {
-            card.classList.add("back");
+            let content = document.createElement("div");
+            content.classList.add("content");
+            content.classList.add("back");
 
-            let content = card.querySelector(".content");
-            card.remove(content);
+            card.appendChild(content);
         }
 
         return card;

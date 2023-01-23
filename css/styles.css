@@ -7,26 +7,22 @@ body {
     display: block;
 }
 
+/* --- CARD --- */
+
 .card {
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
     display: inline-block;
     position: relative;
-    width: 9.1rem;
-    height: 14rem;
+    width: calc(9.1rem - 20px);
+    height: calc(14rem - 22px);
     margin: 5px 7px;
     background-color: #ffffff;
-    border: 10px solid #ffffff;
     outline: 2px solid #000000;
     border-radius: 12px;
     cursor: pointer;
-}
-
-.card.back {
-    background-image: linear-gradient(45deg, #ff0000 25%, transparent 25%, transparent 75%, #ff0000 75%, #ff0000),
-        linear-gradient(45deg, #ff0000 25%, transparent 25%, transparent 75%, #ff0000 75%, #ff0000);
-    background-size: 14px 14px;
-    background-position: 0 0, 7px 7px;
+    user-select: none;
+    padding: 10px;
 }
 
 .card .content.spade,
@@ -37,6 +33,14 @@ body {
 .card .content.diamond,
 .card .content.heart {
     color: #ff0000;
+}
+
+.card .content.back {
+    height: 100%;
+    background-image: linear-gradient(45deg, #ff0000 25%, transparent 25%, transparent 75%, #ff0000 75%, #ff0000),
+        linear-gradient(45deg, #ff0000 25%, transparent 25%, transparent 75%, #ff0000 75%, #ff0000);
+    background-size: 14px 14px;
+    background-position: 0 0, 7px 7px;
 }
 
 .card .content .rank {
@@ -51,4 +55,93 @@ body {
     font-size: 65px;
     bottom: 0px;
     right: 10px;
+}
+
+/* --- DECK --- */
+
+.deck,
+.deck-2,
+.deck-1,
+.deck-0 {
+    position: relative;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    display: inline-block;
+    width: 9.1rem;
+    height: 14rem;
+    margin: 10px 20px 20px 14px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.deck::before,
+.deck::after,
+.deck-2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    will-change: transform;
+}
+
+.deck::before,
+.deck-2::before {
+    z-index: -1;
+    border: 10px solid #ffffff;
+    outline: 2px solid #000000;
+    border-radius: 12px;
+    filter: brightness(70%);
+    background-color: #808080 !important;
+}
+
+.deck::before {
+    transform: translate(6px, 3px);
+}
+
+.deck-2::before {
+    transform: translate(12px, 8px);
+}
+
+.deck::after {
+    z-index: -2;
+    transform: translate(12px, 8px);
+    border: 10px solid #ffffff;
+    outline: 2px solid #000000;
+    border-radius: 12px;
+    background-color: #808080 !important;
+    filter: brightness(40%);
+}
+
+.deck .content,
+.deck-2 .content,
+.deck-1 .content,
+.deck-0 .content {
+    height: 4.65rem;
+    border: 10px solid #ffffff;
+    outline: 2px solid #000000;
+    background-color: #ffffff;
+    background-image: linear-gradient(45deg, #ff0000 25%, transparent 25%, transparent 75%, #ff0000 75%, #ff0000),
+        linear-gradient(45deg, #ff0000 25%, transparent 25%, transparent 75%, #ff0000 75%, #ff0000);
+    background-size: 14px 14px;
+    background-position: 0 0, 7px 7px;
+    padding: 4rem 1rem;
+    border-radius: 12px;
+}
+
+.deck-2 .content {
+    transform: translate(6px, 4px);
+}
+
+.deck-1 .content,
+.deck-0 .content {
+    transform: translate(12px, 10px);
+}
+
+.deck-0,
+.deck-0 .deck-0 .content {
+    opacity: 0;
+    cursor: default;
 }

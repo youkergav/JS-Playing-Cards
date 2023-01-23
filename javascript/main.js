@@ -1,13 +1,13 @@
-let hand = [];
+const HAND = [];
 
-let deck = new Deck();
-deck.shuffle();
+const DECK = new Deck();
+DECK.shuffle();
 
-document.querySelector("#deck").addEventListener("click", drawCard);
+document.querySelector(".deck").addEventListener("click", drawCard);
 
 // Function to flip cards over.
 function flipCard(element) {
-    hand.forEach(card => {
+    HAND.forEach(card => {
         if (element.currentTarget.dataset.id == card.id) {
             let newElement = card.flip();
 
@@ -19,15 +19,30 @@ function flipCard(element) {
     });
 }
 
-function drawCard(element) {
-    let card = deck.draw();
+// Function to draw a card from the deck.
+function drawCard() {
+    let deck = document.querySelector(".deck, .deck-2, .deck-1");
 
-    if(card) {
-        hand.push(card);
+    if (DECK.cards.length) {
+        let card = DECK.draw();
 
-        let newElement = card.element;
-        newElement.addEventListener("click", flipCard);
+        let element = card.element;
+        element.addEventListener("click", flipCard);
 
-        document.querySelector(".hand").appendChild(newElement);
+        HAND.push(card);
+        document.querySelector(".hand").appendChild(element);
+
+        if (DECK.cards.length === 2) {
+            deck.classList.remove("deck");
+            deck.classList.add("deck-2");
+        } else if (DECK.cards.length === 1) {
+            deck.classList.remove("deck-2");
+            deck.classList.add("deck-1");
+        } else if (DECK.cards.length === 0) {
+            deck.classList.remove("deck-1");
+            deck.classList.add("deck-0");
+
+            deck.removeEventListener("click", drawCard);
+        }
     }
 }
