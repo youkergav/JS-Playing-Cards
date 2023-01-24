@@ -14,12 +14,26 @@
 </head>
 
 <body>
+    <div class="gameCriteria">
+        <div class="totalPlayers">
+            <span class="playersCount">Total Players:</span>
+            <input id="playerCount" type="text" placeholder="Default: 4">
+        </div>
+        <!-- <div class="bets">
+            <span class="minBet">Minimum bet:</span>
+            <input type="text" placeholder="Default: $10">
+            <span class="maxBet">Maximum bet:</span>
+            <input type="text" placeholder="Default: $1000">
+        </div> -->
+    </div>
     <div class="table">
         <div class="deck">
             <div class="content">
                 <span class="count">52</span>
             </div>
         </div>
+        <div class="dealerhand"></div>
+        <div class="playerHands"></div>
     </div>
 
     <script src=" javascript/card.js"></script>
