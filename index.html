@@ -11,20 +11,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/blackjack.css">
 </head>
 
 <body>
-    <div class="table">
-        <div class="deck">
-            <div class="content">
-                <span class="count">52</span>
-            </div>
-        </div>
-    </div>
+    <div class="table"></div>
 
-    <script src=" javascript/card.js"></script>
-    <script src="javascript/deck.js"></script>
-    <script src="javascript/main.js"></script>
+    <script src="javascript/BlackjackData.js"></script>
+    <script src="javascript/BlackjackCard.js"></script>
+    <script src="javascript/BlackjackShoe.js"></script>
+    <script>
+        let shoe = document.querySelector(".table").appendChild(new BlackjackShoe(3));
+        shoe.shuffle();
+    </script>
 </body>
 
 </html>
