@@ -4,7 +4,6 @@ class BlackjackShoe extends HTMLElement {
 
         this.uuid = this.uuid();
         this.decks = decks;
-        this.clickable = true;
     }
 
     get cards() {
@@ -23,8 +22,6 @@ class BlackjackShoe extends HTMLElement {
                 });
             });
         }
-
-        this.addEventListener("click", this.draw.bind(this));
     }
 
     uuid() {
@@ -41,19 +38,21 @@ class BlackjackShoe extends HTMLElement {
         }
     }
 
-    draw() {
-        if (!this.clickable) return;
+    draw(flip = true) {
         if (!this.cards.length) return;
 
         let card = this.cards[0];
         let li = card.parentElement;
 
-        this.parentElement.appendChild(card);
         li.remove();
-
-        setTimeout(function () {
-            card.flip();
-        }.bind(this), 250);
+        
+        if(flip) {
+            setTimeout(function () {
+                card.flip();
+            }.bind(this), 250);
+        }
+        
+        return card;
     }
 }
 

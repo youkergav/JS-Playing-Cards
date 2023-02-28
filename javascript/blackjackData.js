@@ -38,19 +38,19 @@ const CardData = {
         },
         Ten: {
             Symbol: "10",
-            Value: 9
+            Value: 10
         },
         Jack: {
             Symbol: "J",
-            Value: 11
+            Value: 10
         },
         Queen: {
             Symbol: "Q",
-            Value: 12
+            Value: 10
         },
         King: {
             Symbol: "K",
-            Value: 13
+            Value: 10
         }
     },
 

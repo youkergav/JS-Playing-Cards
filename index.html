@@ -15,15 +15,316 @@
 </head>
 
 <body>
-    <div class="table">
-        <blackjack-shoe></blackjack-shoe>
-    </div>
+    <div class="table"></div>
+
+    <h1>Blackjack</h1>
+
+    <blackjack-shoe></blackjack-shoe>
+
+    <table id="gameDisplay">
+        <tr><td>Bankroll (Buy-In): </td><td><input type="text" id="bankroll" value="1000"/></td></tr>
+        <tr><td>Current Balance: </td><td><input type="text" id="balance" value="1000"/></td></td></tr>
+        <tr><td>Your Bet: </td><td><input type="text" id="bet" value="10"/></td></tr>
+        <tr style="text-align:center;"><td colspan="2" style="height: 20px;"> </td></tr>
+        <tr style="text-align:center;"><td>Your Hand:<span id="playerValue"></span></td></tr>
+        <tr><td><table id="hand"></table></td></tr>
+        <!-- <tr><td>Your Second Hand: </td><td><span id="secondHand"></span></td></tr> -->
+        <tr style="text-align:center;"><td>Dealers Hand:<span id="dealerValue"></span></td></tr>
+        <tr><td><table id="dealer"></table></td></tr>
+
+        <tr><td colspan="2" style="height: 20px;"></td></tr>
+        <tr><td colspan="2" style="text-align: center;"><button id="startGame">Play Blackjack</button></td></tr>
+        <tr><td colspan="2" style="height: 10px;"></td></tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <button id="hit">Hit</button>
+                <button id="stand">Stand</button>
+                <button id="double">Double</button>
+                <button id="split">Split</button>
+                <button id="surrender">Surrender</button>
+            </td>
+        </tr>
+    </table>
 
     <script src="javascript/BlackjackData.js"></script>
     <script src="javascript/BlackjackCard.js"></script>
     <script src="javascript/BlackjackShoe.js"></script>
+
     <script>
-        document.querySelector("blackjack-shoe").shuffle();
+        let shoe = document.querySelector("blackjack-shoe");
+        
+        let hand = [];
+        let dealer = [];
+        var playerHand = document.querySelector('#hand');
+        var dealerHand = document.querySelector('#dealer');
+
+        var counter = 0;
+        
+        shoe.shuffle();
+
+        bankroll.oninput = function() {
+            balance.value = bankroll.value;
+        };
+
+        document.getElementById("hit").disabled = true;
+        document.getElementById("stand").disabled = true;
+        document.getElementById("double").disabled = true;
+        document.getElementById("split").disabled = true;
+        document.getElementById("surrender").disabled = true;
+
+        function startGame() {
+            counter = counter++;
+
+            let bankroll = document.getElementById("bankroll").value;
+            let balance = document.getElementById("balance");
+            let bet = document.getElementById("bet").value;
+
+            if(counter = 1){ balance.setAttribute('value' , bankroll); }
+
+            // Clear previous hand
+            playerHand.querySelectorAll("blackjack-card").forEach(card => card.remove());
+            dealerHand.querySelectorAll("blackjack-card").forEach(card => card.remove());
+
+            setTimeout(() => {playerHand.appendChild(shoe.draw());}, 200);
+            setTimeout(() => {playerHand.appendChild(shoe.draw());}, 500);
+            setTimeout(() => {dealerHand.appendChild(shoe.draw());}, 800);
+            setTimeout(() => {dealerHand.appendChild(shoe.draw(flip = false));}, 1100);
+
+            // Calulate Inital player hand
+            setTimeout(() => {document.querySelector("#playerValue").innerText = calculateValue(playerHand);}, 1200);
+            // document.querySelector("#playerValue").innerText = calculateValue(playerHand);
+
+            // Disable buttons
+            document.getElementById("bankroll").disabled = true;
+            document.getElementById("balance").disabled = true;
+            document.getElementById("hit").disabled = false;
+            document.getElementById("stand").disabled = false;
+            document.getElementById("double").disabled = false;
+            document.getElementById("split").disabled = false;
+            document.getElementById("surrender").disabled = false;
+        }
+
+        // function getCard() {
+        //     // Return a random card from 1 to 10
+        //     return Math.floor(Math.random() * 10) + 1;
+        // }
+
+        function hit() {
+            // Add a card to player's hand
+            // hand.push(getCard());
+
+            playerHand.appendChild(shoe.draw());
+            document.querySelector("#playerValue").innerText = calculateValue(playerHand);
+
+            // Check for bust
+            // if (getHandValue(hand) > 21) {
+            //     document.getElementById("dealer").textContent = dealer.join(", ");
+            //     endGame("You bust! Dealer wins.");
+            //     balance.value = parseInt(balance.value) - parseInt(bet.value);
+            //     return;
+            // }
+
+            // Display cards
+            // document.getElementById("hand").textContent = hand.join(", ");
+            // document.getElementById("double").disabled = true;
+        }
+
+        function stand() {
+            // Dealer hits until hand value is 17 or greater
+            while (getHandValue(dealer) < 17) {
+                dealer.push(getCard());
+                document.getElementById("dealer").textContent = dealer.join(", ");
+            }
+
+            // Check for bust
+            if (getHandValue(dealer) > 21) {
+                document.getElementById("dealer").textContent = dealer.join(", ");
+                endGame("Dealer busts! You win.");
+                balance.value = parseInt(balance.value) + parseInt(bet.value);
+             return;
+            }
+
+            // Compare hand values
+            if (getHandValue(hand) > getHandValue(dealer)) {
+                document.getElementById("dealer").textContent = dealer.join(", ");
+                endGame("You win!");
+                balance.value = parseInt(balance.value) + parseInt(bet.value);
+            } else if (getHandValue(hand) < getHandValue(dealer)) {
+                document.getElementById("dealer").textContent = dealer.join(", ");
+                endGame("Dealer wins.");
+                balance.value = parseInt(balance.value) - parseInt(bet.value);
+            } else {
+                document.getElementById("dealer").textContent = dealer.join(", ");
+                endGame("It's a push!");
+                balance.value = balance.value;
+            }
+        }
+
+        function calculateValue(hand) {
+            var possibleValues = new Array(1).fill(0);
+            var aces = [];
+
+            // console.log(possibleValues);
+
+            hand.querySelectorAll("blackjack-card").forEach((card) => {
+                if(card.rank != CardData.Rank.Ace){
+                    possibleValues[0] += card.rank.Value;
+                } else {
+                    aces.push(card);
+                }
+            });
+
+            // aces.forEach((card) => {
+            //     if(possibleValues[0] + 11 <= 21){
+            //         if(possibleValues.length > 1){
+            //             possibleValues[1] += 11;
+            //         } else {
+            //             possibleValues.push(possibleValues[0] + 11);
+            //         }
+            //     } else if(possibleValues.length > 1) {
+            //         possibleValues.pop();
+            //     }
+            //     possibleValues[0] += 1;
+            // });
+
+            // console.log(possibleValues);
+            return possibleValues;
+        }
+
+        function double() {
+            // if (hitCount < 1) {
+                // Add a card to player's hand
+                hand.push(getCard());
+                document.getElementById("hand").textContent = hand.join(", ");
+
+                // Check for bust
+                if (getHandValue(hand) > 21) {
+                    document.getElementById("dealer").textContent = dealer.join(", ");
+                    endGame("You bust! Dealer wins.");
+                    balance.value = parseInt(balance.value) - (parseInt(bet.value) * 2);
+                    return;
+                }
+
+                // Dealer hits until hand value is 17 or greater
+                while (getHandValue(dealer) < 17) {
+                    dealer.push(getCard());
+                    document.getElementById("dealer").textContent = dealer.join(", ");
+                }
+
+                // Check for bust
+                if (getHandValue(dealer) > 21) {
+                    document.getElementById("dealer").textContent = dealer.join(", ");
+                    endGame("Dealer busts! You Win.");
+                    balance.value = parseInt(balance.value) + (parseInt(bet.value) * 2);
+                    return;
+                } else {
+                    document.getElementById("dealer").textContent = dealer.join(", ");
+                    endGame("Dealer wins! You lose.");
+                    balance.value = parseInt(balance.value) - (parseInt(bet.value) * 2);
+                }
+        }
+
+        function split() {
+            // Check if player has two cards of the same rank
+            if (hand.length !== 2 || hand[0] !== hand[1]) {
+                alert("You can only split with two cards of the same rank.");
+                return;
+            }
+
+            // Deduct balance for second hand
+            // balance.value = parseInt(balance.value) - (parseInt(bet.value) * 2)
+
+            // Create second hand and move second card to it
+            let secondHand = [hand.pop()];
+            document.getElementById("hand").textContent = hand.join(", ");
+            document.getElementById("secondHand").textContent = secondHand.join(", ");
+
+            // Deal a new card to each hand
+            hand.push(getCard());
+            secondHand.push(getCard());
+            document.getElementById("hand").textContent = hand.join(", ");
+            document.getElementById("secondHand").textContent = secondHand.join(", ");
+
+            // Play out each hand separately
+            playHand(hand);
+            playHand(secondHand);
+        }
+
+        function playHand(hand) {
+            // Keep hitting until player stands or busts
+            while (true) {
+                let action = prompt(`Your hand: ${hand.join(", ")}. Hit or Stand?`);
+                if (action === "hit") {
+                    hand.push(getCard());
+                    document.getElementById("hand").textContent = hand.join(", ");
+                    if (getHandValue(hand) > 21) {
+                        alert("You bust! Dealer wins.");
+                        balance.value = parseInt(balance.value) - parseInt(bet.value);
+                        return;
+                    }
+                } else if (action === "stand") {
+                    break;
+                } else {
+                    alert("Invalid action. Please enter 'hit' or 'stand'.");
+                }
+            }
+
+            // Dealer hits until hand value is 17 or greater
+            while (getHandValue(dealer) < 17) {
+                dealer.push(getCard());
+                document.getElementById("dealer").textContent = dealer.join(", ");
+            }
+
+            // Check for bust
+            if (getHandValue(dealer) > 21) {
+                document.getElementById("dealer").textContent = dealer.join(", ");
+                alert("Dealer busts! You win.");
+                balance.value = parseInt(balance.value) + parseInt(bet.value);
+                return;
+            } else if (getHandValue(hand) > getHandValue(dealer)) {
+                document.getElementById("dealer").textContent = dealer.join(", ");
+                alert("You win!");
+                balance.value = parseInt(balance.value) + parseInt(bet.value);
+            } else if (getHandValue(hand) < getHandValue(dealer)) {
+                document.getElementById("dealer").textContent = dealer.join(", ");
+                alert("Dealer wins.");
+                balance.value = parseInt(balance.value) - parseInt(bet.value);
+            } else {
+                document.getElementById("dealer").textContent = dealer.join(", ");
+                alert("It's a push!");
+                balance.value = parseInt(balance.value);
+            }
+        }
+
+        function surrender() {
+            // Player forfeits half of their bet
+            document.getElementById("dealer").textContent = dealer.join(", ");
+            endGame("You surrendered! Dealer wins.");
+            balance.value = parseInt(balance.value) - (parseInt(bet.value) / 2);
+        }
+
+        function endGame(message) {
+            // Display result message
+            alert(message);
+
+            // Update balance and display new total
+            document.getElementById("balance").value = balance.value;
+
+            // Disable buttons
+            document.getElementById("hit").disabled = true;
+            document.getElementById("stand").disabled = true;
+            document.getElementById("double").disabled = true;
+            document.getElementById("split").disabled = true;
+            document.getElementById("surrender").disabled = true;
+        }
+
+        // Attach event listeners to buttons
+        document.getElementById("startGame").addEventListener("click", startGame);
+        document.getElementById("hit").addEventListener("click", hit);
+        document.getElementById("stand").addEventListener("click", stand);
+        document.getElementById("double").addEventListener("click", double);
+        document.getElementById("split").addEventListener("click", split);
+        document.getElementById("surrender").addEventListener("click", surrender);
     </script>
 </body>
 
