@@ -25,11 +25,11 @@
         <tr><td>Bankroll (Buy-In): </td><td><input type="text" id="bankroll" value="1000"/></td></tr>
         <tr><td>Current Balance: </td><td><input type="text" id="balance" value="1000"/></td></td></tr>
         <tr><td>Your Bet: </td><td><input type="text" id="bet" value="10"/></td></tr>
-        <tr style="text-align:center;"><td colspan="2" style="height: 20px;"> </td></tr>
-        <tr style="text-align:center;"><td>Your Hand:<span id="playerValue"></span></td></tr>
+        <tr style="text-align: center;"><td colspan="2" style="height: 20px;"> </td></tr>
+        <tr style="text-align: center;"><td>Your Hand:<span id="playerValue"></span></td></tr>
         <tr><td><table id="hand"></table></td></tr>
         <!-- <tr><td>Your Second Hand: </td><td><span id="secondHand"></span></td></tr> -->
-        <tr style="text-align:center;"><td>Dealers Hand:<span id="dealerValue"></span></td></tr>
+        <tr style="text-align: center;"><td>Dealers Hand:<span id="dealerValue"></span></td></tr>
         <tr><td><table id="dealer"></table></td></tr>
 
         <tr><td colspan="2" style="height: 20px;"></td></tr>
@@ -90,8 +90,12 @@
             setTimeout(() => {dealerHand.appendChild(shoe.draw());}, 800);
             setTimeout(() => {dealerHand.appendChild(shoe.draw(flip = false));}, 1100);
 
-            // Calulate Inital player hand
-            setTimeout(() => {document.querySelector("#playerValue").innerText = calculateValue(playerHand);}, 1200);
+            // Calulate inital player hand
+            setTimeout(() => {document.querySelector("#playerValue").innerText = calculateValue(playerHand.querySelectorAll("blackjack-card"));}, 1200);
+            setTimeout(() => {document.querySelector("#dealerValue").innerText = calculateValue([dealerHand.querySelectorAll("blackjack-card")[0]]);}, 1200);
+            // dealerHand.filter(card => !card.facedown);
+            // setTimeout(() => { dealerHand.querySelector("blackjack-card"); }, 1200);
+
             // document.querySelector("#playerValue").innerText = calculateValue(playerHand);
 
             // Disable buttons
@@ -114,7 +118,7 @@
             // hand.push(getCard());
 
             playerHand.appendChild(shoe.draw());
-            document.querySelector("#playerValue").innerText = calculateValue(playerHand);
+            document.querySelector("#playerValue").innerText = calculateValue(playerHand.querySelectorAll("blackjack-card"));
 
             // Check for bust
             // if (getHandValue(hand) > 21) {
@@ -160,35 +164,37 @@
             }
         }
 
-        function calculateValue(hand) {
-            var possibleValues = new Array(1).fill(0);
-            var aces = [];
+        function calculateValue(cards) {
+            var lowTotal = 0;
+            var highTotal = 0;
+            var aceCount = 0;
 
-            // console.log(possibleValues);
-
-            hand.querySelectorAll("blackjack-card").forEach((card) => {
+            cards.forEach((card) => {
                 if(card.rank != CardData.Rank.Ace){
-                    possibleValues[0] += card.rank.Value;
+                    lowTotal += card.rank.Value;
+                    highTotal += card.rank.Value;
                 } else {
-                    aces.push(card);
+                    aceCount++;
                 }
             });
+            
+            if(aceCount > 0) {
+                lowTotal += 1;
+                highTotal += 11;
 
-            // aces.forEach((card) => {
-            //     if(possibleValues[0] + 11 <= 21){
-            //         if(possibleValues.length > 1){
-            //             possibleValues[1] += 11;
-            //         } else {
-            //             possibleValues.push(possibleValues[0] + 11);
-            //         }
-            //     } else if(possibleValues.length > 1) {
-            //         possibleValues.pop();
-            //     }
-            //     possibleValues[0] += 1;
-            // });
+                for(var i = 0; i < aceCount - 1; i++){
+                    lowTotal += 1;
+                    highTotal += 1;
+                }
+            }
 
-            // console.log(possibleValues);
-            return possibleValues;
+            if (aceCount == 0 || highTotal > 21 || lowTotal == highTotal){
+                return [lowTotal];
+            } else if(highTotal == 21) {
+                return [highTotal];
+            } else {
+                return [lowTotal, highTotal]
+            }
         }
 
         function double() {
