@@ -15,14 +15,15 @@
 </head>
 
 <body>
-    <div class="table"></div>
+    <div class="table">
+        <blackjack-shoe></blackjack-shoe>
+    </div>
 
     <script src="javascript/BlackjackData.js"></script>
     <script src="javascript/BlackjackCard.js"></script>
     <script src="javascript/BlackjackShoe.js"></script>
     <script>
-        let shoe = document.querySelector(".table").appendChild(new BlackjackShoe(3));
-        shoe.shuffle();
+        document.querySelector("blackjack-shoe").shuffle();
     </script>
 </body>
 

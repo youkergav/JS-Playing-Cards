@@ -81,12 +81,34 @@ blackjack-card .content .front .suit {
     right: 5px;
 }
 
+/* -- HAND -- */
+
+blackjack-hand .cards {
+    position: relative;
+    display: inline-block;
+    list-style-type: none;
+    user-select: none;
+    padding: 0;
+}
+
+blackjack-hand .cards li {
+    display: inline-block;
+    margin-left: -115px;
+}
+
+blackjack-hand .cards li:nth-child(1) {
+    margin-left: 0;
+}
+
+
 /* --- SHOE --- */
 
 blackjack-shoe {
-    display: inline-block;
-    margin: 10px 30px 10px 20px;
+    float: right;
+    display: block;
+    transform: rotate(90deg);
     cursor: pointer;
+    margin: 100px 0 200px 0;
 }
 
 blackjack-shoe .cards {
@@ -143,4 +165,45 @@ blackjack-shoe .cards li:nth-child(3) blackjack-card .content .back {
 blackjack-shoe .cards li:nth-child(n+4) blackjack-card .content .front,
 blackjack-shoe .cards li:nth-child(n+4) blackjack-card .content .back {
     box-shadow: none;
+}
+
+/* -- PLAYER -- */
+blackjack-players ul {
+    position: relative;
+    padding: 0;
+    display: table;
+    width: 100%;
+    max-width: 1700px;
+    bottom: -55px;
+    margin-top: 50px;
+    list-style: none;
+}
+
+blackjack-players li {
+    display: table-cell;
+    position: relative;
+    text-align: center;
+}
+
+blackjack-players li:nth-child(1) blackjack-player {
+    transform-origin: top right;
+    transform: rotate(30deg);
+    top: -5px;
+}
+
+blackjack-players li:nth-child(3) blackjack-player {
+    transform-origin: top left;
+    transform: rotate(-30deg);
+    top: -5px;
+}
+
+blackjack-player {
+    width: 9.1rem;
+    height: 13.9rem;
+    margin: 20px 50px;
+    display: inline-block;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: inset 3px 3px 5px 0 rgb(0 0 0 / 12%), inset -2px -2px 4px 0px rgb(124 124 124 / 10%);
+    background-color: rgba(56, 56, 56, 0.1);
 }

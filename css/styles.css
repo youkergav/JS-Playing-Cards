@@ -7,10 +7,12 @@ html {
 }
 
 body {
-    height: 100%;
     margin: 0;
 }
 
 .table {
-    display: block;
+    width: 80%;
+    min-width: 800px;
+    max-width: 2400px;
+    margin: 0 auto;
 }

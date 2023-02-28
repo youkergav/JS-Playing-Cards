@@ -48,15 +48,12 @@ class BlackjackShoe extends HTMLElement {
         let card = this.cards[0];
         let li = card.parentElement;
 
+        this.parentElement.appendChild(card);
+        li.remove();
+
         setTimeout(function () {
-            this.parentElement.appendChild(card);
-            li.remove();
-
-            this.clickable = true;
-        }.bind(this), 450);
-
-        card.flip();
-        this.clickable = false;
+            card.flip();
+        }.bind(this), 250);
     }
 }
 
