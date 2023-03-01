@@ -4,7 +4,7 @@ class BlackjackCard extends BlackjackElement {
         super();
 
         this.dataset.uuid = this._uuid();
-        this.dataset.rank = this.dataset.rank || rank?.name || "Ace";
+        this.dataset.rank = this.dataset.rank || rank?.name || "Jack";
         this.dataset.suit = this.dataset.suit || suit?.name || "Spade";
 
         this.dataset.facedown = this.dataset.facedown || facedown;

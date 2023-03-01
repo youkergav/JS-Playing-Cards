@@ -125,7 +125,9 @@
 
             // TODO: Document purpose.
             counter = counter++;
-            if (counter = 1) { balance.setAttribute('value', bankroll); }
+            if (counter = 1) {
+                balance.setAttribute('value', bankroll);
+            }
 
             // Remove card for all players.
             playerHand.clear();
@@ -139,7 +141,7 @@
 
             // Calculate initial scores for all players.
             setTimeout(() => { document.querySelector("#playerValue").innerText = playerHand.calcScore(); }, 700);
-            setTimeout(() => { document.querySelector("#dealerValue").innerText = dealerHand.calcScore(); }, 700);
+            setTimeout(() => { document.querySelector("#dealerValue").innerText = dealerHand.calcScore(); }, 900);
 
             // Disable setup input, and enable game buttons.
             document.getElementById("bankroll").disabled = true;

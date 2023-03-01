@@ -107,6 +107,19 @@ blackjack-hand .cards li:nth-child(1) {
 
 /* --- SHOE --- */
 
+/* 
+This is to temporary hide the shoe
+TODO: Determine if show should be displayed.
+*/
+blackjack-shoe,
+blackjack-shoe .cards,
+blackjack-shoe blackjack-card {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: left !important;
+}
+
 blackjack-shoe {
     float: right;
     display: block;
