@@ -1,88 +1,88 @@
 const CardData = {
-    Rank: {
-        Ace: {
-            Name: "Ace",
-            Symbol: "A",
-            Value: 1
+    rank: {
+        ace: {
+            name: "Ace",
+            symbol: "A",
+            value: 1
         },
-        Two: {
-            Name: "Two",
-            Symbol: "2",
-            Value: 2
+        two: {
+            name: "Two",
+            symbol: "2",
+            value: 2
         },
-        Three: {
-            Name: "Three",
-            Symbol: "3",
-            Value: 3
+        three: {
+            name: "Three",
+            symbol: "3",
+            value: 3
         },
-        Four: {
-            Name: "Four",
-            Symbol: "4",
-            Value: 4
+        four: {
+            name: "Four",
+            symbol: "4",
+            value: 4
         },
-        Five: {
-            Name: "Five",
-            Symbol: "5",
-            Value: 5
+        five: {
+            name: "Five",
+            symbol: "5",
+            value: 5
         },
-        Six: {
-            Name: "Six",
-            Symbol: "6",
-            Value: 6
+        six: {
+            name: "Six",
+            symbol: "6",
+            value: 6
         },
-        Seven: {
-            Name: "Seven",
-            Symbol: "7",
-            Value: 7
+        seven: {
+            name: "Seven",
+            symbol: "7",
+            value: 7
         },
-        Eight: {
-            Name: "Eight",
-            Symbol: "8",
-            Value: 8
+        eight: {
+            name: "Eight",
+            symbol: "8",
+            value: 8
         },
-        Nine: {
-            Name: "Nine",
-            Symbol: "9",
-            Value: 9
+        nine: {
+            name: "Nine",
+            symbol: "9",
+            value: 9
         },
-        Ten: {
-            Name: "Ten",
-            Symbol: "10",
-            Value: 10
+        ten: {
+            name: "Ten",
+            symbol: "10",
+            value: 10
         },
-        Jack: {
-            Name: "Jack",
-            Symbol: "J",
-            Value: 10
+        jack: {
+            name: "Jack",
+            symbol: "J",
+            value: 10
         },
-        Queen: {
-            Name: "Queen",
-            Symbol: "Q",
-            Value: 10
+        queen: {
+            name: "Queen",
+            symbol: "Q",
+            value: 10
         },
-        King: {
-            Name: "King",
-            Symbol: "K",
-            Value: 10
+        king: {
+            name: "King",
+            symbol: "K",
+            value: 10
         }
     },
 
-    Suit: {
-        Heart: {
-            Name: "Heart",
-            Symbol: "\u2665"
+    suit: {
+        heart: {
+            name: "Heart",
+            symbol: "\u2665"
         },
-        Club: {
-            Name: "Club",
-            Symbol: "\u2663"
+        club: {
+            name: "Club",
+            symbol: "\u2663"
         },
-        Diamond: {
-            Name: "Diamond",
-            Symbol: "\u2666"
+        diamond: {
+            name: "Diamond",
+            symbol: "\u2666"
         },
-        Spade: {
-            Name: "Spade",
-            Symbol: "\u2660"
+        spade: {
+            name: "Spade",
+            symbol: "\u2660"
         }
     }
 }

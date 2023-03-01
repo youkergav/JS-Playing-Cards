@@ -59,8 +59,8 @@ class BlackjackHand extends HTMLElement {
                 return;
             }
 
-            // Skip is card is an ace and add it the the counter for later.
-            if (card.rank == CardData.Rank.Ace) {
+            // Skip if the card is an ace and add it the the counter for later.
+            if (card.rank == CardData.rank.ace) {
                 aceCount++;
                 return;
             }
@@ -94,4 +94,4 @@ class BlackjackHand extends HTMLElement {
     }
 }
 
-customElements.define("blackjack-hand", BlackjackHand); // Bind elements of <blackjack-shoe> to this class.
+customElements.define("blackjack-hand", BlackjackHand); // Bind elements of <blackjack-hand> to this class.

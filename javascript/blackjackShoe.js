@@ -28,8 +28,8 @@ class BlackjackShoe extends HTMLElement {
         ul.classList.add("cards");
 
         for (let i = 0; i < this.decks; i++) {
-            Object.values(CardData.Suit).forEach(suit => {
-                Object.values(CardData.Rank).forEach(rank => {
+            Object.values(CardData.suit).forEach(suit => {
+                Object.values(CardData.rank).forEach(rank => {
                     let li = ul.insertBefore(document.createElement("li"), ul.firstChild);
                     li.appendChild(new BlackjackCard(rank, suit, true));
                 });

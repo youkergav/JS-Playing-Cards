@@ -4,19 +4,20 @@ class BlackjackCard extends HTMLElement {
         super();
 
         this.dataset.uuid = uuid();
-        this.dataset.rank = this.dataset.rank || rank.Name;
-        this.dataset.suit = this.dataset.suit || suit.Name;
+        this.dataset.rank = this.dataset.rank || rank?.name || "Ace";
+        this.dataset.suit = this.dataset.suit || suit?.name || "Spade";
+
         this.dataset.facedown = this.dataset.facedown || facedown;
     }
 
     // Getter to get the rank of the card.
     get rank() {
-        return CardData.Rank[this.dataset.rank];
+        return CardData.rank[this.dataset.rank.toLowerCase()];
     }
 
     // Getter to get the suit of the card.
     get suit() {
-        return CardData.Suit[this.dataset.suit];
+        return CardData.suit[this.dataset.suit.toLowerCase()];
     }
 
     // Getter to get if the card is facedown (boolean).
@@ -47,15 +48,15 @@ class BlackjackCard extends HTMLElement {
 
         let front = content.appendChild(document.createElement("div"));
         front.classList.add("front");
-        front.classList.add(this.suit.Name.toLowerCase());
+        front.classList.add(this.suit.name);
 
         let rank = front.appendChild(document.createElement("span"));
         rank.classList.add("rank");
-        rank.innerText = this.rank.Symbol;
+        rank.innerText = this.rank.symbol;
 
         let suit = front.appendChild(document.createElement("span"));
         suit.classList.add("suit");
-        suit.innerText = this.suit.Symbol;
+        suit.innerText = this.suit.symbol;
     }
 
     // Function to flip the card over and update the facedown status.
