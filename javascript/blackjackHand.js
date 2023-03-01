@@ -1,9 +1,9 @@
-class BlackjackHand extends HTMLElement {
+class BlackjackHand extends BlackjackElement {
     // Constructor for this class.
     constructor() {
         super();
 
-        this.dataset.uuid = uuid();
+        this.dataset.uuid = this._uuid();
     }
 
     // Getter to get all cards in the hand.

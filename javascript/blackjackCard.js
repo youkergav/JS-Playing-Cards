@@ -1,9 +1,9 @@
-class BlackjackCard extends HTMLElement {
+class BlackjackCard extends BlackjackElement {
     // Constructor for this class.
     constructor(rank, suit, facedown = false) {
         super();
 
-        this.dataset.uuid = uuid();
+        this.dataset.uuid = this._uuid();
         this.dataset.rank = this.dataset.rank || rank?.name || "Ace";
         this.dataset.suit = this.dataset.suit || suit?.name || "Spade";
 

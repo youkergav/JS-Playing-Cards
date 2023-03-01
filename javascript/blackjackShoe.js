@@ -1,10 +1,10 @@
-class BlackjackShoe extends HTMLElement {
+class BlackjackShoe extends BlackjackElement {
     // Constructor for this class.
     constructor(decks = 3) {
         super();
 
         this.dataset.decks = this.dataset.decks || decks;
-        this.dataset.uuid = uuid();
+        this.dataset.uuid = this._uuid();
     }
 
     // Getter to get all the cards in the shoe.
