@@ -1,4 +1,5 @@
 class BlackjackShoe extends HTMLElement {
+    // Constructor for this class.
     constructor(decks = 3) {
         super();
 

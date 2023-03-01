@@ -1,8 +1,9 @@
 class BlackjackHand extends HTMLElement {
+    // Constructor for this class.
     constructor() {
         super();
 
-        this.uuid = this.uuid();
+        this.dataset.uuid = uuid();
     }
 
     // Getter to get all cards in the hand.
@@ -10,15 +11,15 @@ class BlackjackHand extends HTMLElement {
         return Array.from(this.querySelectorAll(".cards blackjack-card")).reverse();
     }
 
+    // Getter to get the shoe's UUID.
+    get uuid() {
+        return this.dataset.uuid;
+    }
+
+    // Callback for when HTML element in created.
     connectedCallback() {
         let ul = this.appendChild(document.createElement("ul"));
         ul.classList.add("cards");
-    }
-
-    uuid() {
-        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-        );
     }
 
     // Function to add a card to the hand.
@@ -93,4 +94,4 @@ class BlackjackHand extends HTMLElement {
     }
 }
 
-customElements.define("blackjack-hand", BlackjackHand);
+customElements.define("blackjack-hand", BlackjackHand); // Bind elements of <blackjack-shoe> to this class.

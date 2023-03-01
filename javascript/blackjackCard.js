@@ -1,4 +1,5 @@
 class BlackjackCard extends HTMLElement {
+    // Constructor for this class.
     constructor(rank, suit, facedown = false) {
         super();
 
