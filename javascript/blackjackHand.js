@@ -8,7 +8,7 @@ class BlackjackHand extends HTMLElement {
 
     // Getter to get all cards in the hand.
     get cards() {
-        return Array.from(this.querySelectorAll(".cards blackjack-card")).reverse();
+        return this.querySelectorAll(".cards blackjack-card");
     }
 
     // Getter to get the shoe's UUID.
@@ -32,6 +32,7 @@ class BlackjackHand extends HTMLElement {
         let li = this.querySelector(".cards").appendChild(document.createElement("li"));
         li.appendChild(card);
 
+        // TODO: Why is setTimeout needed?
         if (flip) {
             setTimeout(function () {
                 card.flip();
@@ -65,8 +66,8 @@ class BlackjackHand extends HTMLElement {
                 return;
             }
 
-            lowTotal += card.rank.Value;
-            highTotal += card.rank.Value;
+            lowTotal += card.rank.value;
+            highTotal += card.rank.value;
         });
 
         // Calculate ace card values.

@@ -138,8 +138,8 @@
             setTimeout(() => { dealerHand.add(shoe.draw()) }, 600);
 
             // Calculate initial scores for all players.
-            setTimeout(() => { document.querySelector("#playerValue").innerText = playerHand.calcScore(); }, 1200);
-            setTimeout(() => { document.querySelector("#dealerValue").innerText = dealerHand.calcScore(); }, 1200);
+            setTimeout(() => { document.querySelector("#playerValue").innerText = playerHand.calcScore(); }, 700);
+            setTimeout(() => { document.querySelector("#dealerValue").innerText = dealerHand.calcScore(); }, 700);
 
             // Disable setup input, and enable game buttons.
             document.getElementById("bankroll").disabled = true;
@@ -154,7 +154,7 @@
         function hit() {
             // Add a card to the player's hand and update score. TODO: Check if there is a bust.
             playerHand.add(shoe.draw());
-            document.querySelector("#playerValue").innerText = playerHand.calcScore();;
+            setTimeout(() => { document.querySelector("#playerValue").innerText = playerHand.calcScore(); }, 300);
         }
 
         function stand() {

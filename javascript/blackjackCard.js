@@ -48,7 +48,7 @@ class BlackjackCard extends HTMLElement {
 
         let front = content.appendChild(document.createElement("div"));
         front.classList.add("front");
-        front.classList.add(this.suit.name);
+        front.classList.add(this.suit.name.toLowerCase());
 
         let rank = front.appendChild(document.createElement("span"));
         rank.classList.add("rank");
