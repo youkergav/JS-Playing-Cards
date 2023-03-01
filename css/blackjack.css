@@ -93,7 +93,7 @@ blackjack-hand .cards {
 
 blackjack-hand .cards li {
     display: inline-block;
-    margin-left: -115px;
+    margin-left: -105px;
 }
 
 blackjack-hand .cards li:nth-child(1) {
