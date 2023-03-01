@@ -36,7 +36,7 @@ class BlackjackHand extends HTMLElement {
     // Function to remove all cards from the hand.
     clear() {
         this.cards.forEach((card) => {
-            card.remove();
+            card.parentElement.remove();
         });
     }
 

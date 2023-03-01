@@ -2,10 +2,30 @@ class BlackjackCard extends HTMLElement {
     constructor(rank, suit, facedown = false) {
         super();
 
-        this.uuid = this.uuid();
-        this.rank = rank;
-        this.suit = suit;
-        this.facedown = facedown;
+        this.dataset.uuid = uuid();
+        this.dataset.rank = this.dataset.rank || rank.Name;
+        this.dataset.suit = this.dataset.suit || suit.Name;
+        this.dataset.facedown = this.dataset.facedown || facedown;
+    }
+
+    get rank() {
+        return CardData.Rank[this.dataset.rank];
+    }
+
+    get suit() {
+        return CardData.Suit[this.dataset.suit];
+    }
+
+    get facedown() {
+        return ["true", "t", "yes", "y", "1"].includes(this.dataset.facedown.toLowerCase());
+    }
+
+    set facedown(value) {
+        this.dataset.facedown = value;
+    }
+
+    get uuid() {
+        return this.dataset.uuid;
     }
 
     connectedCallback() {
@@ -13,7 +33,7 @@ class BlackjackCard extends HTMLElement {
 
         let content = this.appendChild(document.createElement("div"));
         content.classList.add("content");
-        content.classList.add(this.facedown ? "facedown" : "faceup");
+        content.classList.add(this.facedown == true ? "facedown" : "faceup");
 
         let back = content.appendChild(document.createElement("div"));
         back.classList.add("back");
@@ -31,17 +51,9 @@ class BlackjackCard extends HTMLElement {
         suit.innerText = this.suit.Symbol;
     }
 
-    uuid() {
-        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-        );
-    }
-
     flip() {
         this.querySelector(".content").classList.toggle("flip");
         this.facedown = !this.facedown;
-
-        this.clickable = false;
     }
 };
 

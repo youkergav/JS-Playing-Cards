@@ -81,6 +81,10 @@ blackjack-card .content .front .suit {
     right: 5px;
 }
 
+blackjack-card[data-rank="Ten"] .content .front .rank {
+    left: 0;
+}
+
 /* -- HAND -- */
 
 blackjack-hand .cards {

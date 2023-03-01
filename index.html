@@ -79,6 +79,7 @@
     </table>
 
     <script src="javascript/BlackjackData.js"></script>
+    <script src="javascript/BlackjackUtil.js"></script>
     <script src="javascript/BlackjackCard.js"></script>
     <script src="javascript/BlackjackHand.js"></script>
     <script src="javascript/BlackjackShoe.js"></script>
@@ -139,17 +140,9 @@
         }
 
         function hit() {
-            // Add a card to the player's hand and update their score.
+            // Add a card to the player's hand and update score. TODO: Check if there is a bust.
             playerHand.add(shoe.draw());
-            document.querySelector("#playerValue").innerText = playerHand.calcScore();
-
-            // Check if there is a bust.
-            // if (getHandValue(hand) > 21) {
-            //     document.getElementById("dealer").textContent = dealer.join(", ");
-            //     endGame("You bust! Dealer wins.");
-            //     balance.value = parseInt(balance.value) - parseInt(bet.value);
-            //     return;
-            // }
+            document.querySelector("#playerValue").innerText = playerHand.calcScore();;
         }
 
         function stand() {
