@@ -8,26 +8,32 @@ class BlackjackCard extends HTMLElement {
         this.dataset.facedown = this.dataset.facedown || facedown;
     }
 
+    // Getter to get the rank of the card.
     get rank() {
         return CardData.Rank[this.dataset.rank];
     }
 
+    // Getter to get the suit of the card.
     get suit() {
         return CardData.Suit[this.dataset.suit];
     }
 
+    // Getter to get if the card is facedown (boolean).
     get facedown() {
         return ["true", "t", "yes", "y", "1"].includes(this.dataset.facedown.toLowerCase());
     }
 
+    // Setter to update the facedown status (boolean).
     set facedown(value) {
         this.dataset.facedown = value;
     }
 
+    // Getter to get the card's UUID.
     get uuid() {
         return this.dataset.uuid;
     }
 
+    // Callback for when HTML element in created.
     connectedCallback() {
         if (this.querySelector(".content")) return;
 
@@ -51,10 +57,11 @@ class BlackjackCard extends HTMLElement {
         suit.innerText = this.suit.Symbol;
     }
 
+    // Function to flip the card over and update the facedown status.
     flip() {
         this.querySelector(".content").classList.toggle("flip");
         this.facedown = !this.facedown;
     }
 };
 
-customElements.define("blackjack-card", BlackjackCard);
+customElements.define("blackjack-card", BlackjackCard); // Bind elements of <blackjack-card> to this class.

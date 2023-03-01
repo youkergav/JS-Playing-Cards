@@ -111,7 +111,6 @@ blackjack-shoe {
     float: right;
     display: block;
     transform: rotate(90deg);
-    cursor: pointer;
     margin: 100px 0 200px 0;
 }
 

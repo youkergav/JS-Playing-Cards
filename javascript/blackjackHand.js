@@ -23,6 +23,11 @@ class BlackjackHand extends HTMLElement {
 
     // Function to add a card to the hand.
     add(card, flip = true) {
+        // Exit if card is not passed in.
+        if (!card) {
+            return;
+        }
+
         let li = this.querySelector(".cards").appendChild(document.createElement("li"));
         li.appendChild(card);
 

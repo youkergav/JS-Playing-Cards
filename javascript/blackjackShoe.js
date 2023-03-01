@@ -2,14 +2,26 @@ class BlackjackShoe extends HTMLElement {
     constructor(decks = 3) {
         super();
 
-        this.uuid = this.uuid();
-        this.decks = decks;
+        this.dataset.decks = this.dataset.decks || decks;
+        this.dataset.uuid = uuid();
     }
 
+    // Getter to get all the cards in the shoe.
     get cards() {
         return Array.from(this.querySelectorAll("blackjack-card")).reverse();
     }
 
+    // Getter to get the number of decks the shoe started with.
+    get decks() {
+        return this.dataset.decks;
+    }
+
+    // Getter to get the shoe's UUID.
+    get uuid() {
+        return this.dataset.uuid;
+    }
+
+    // Callback for when HTML element in created.
     connectedCallback() {
         let ul = this.appendChild(document.createElement("ul"));
         ul.classList.add("cards");
@@ -24,13 +36,13 @@ class BlackjackShoe extends HTMLElement {
         }
     }
 
-    uuid() {
-        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-        );
-    }
-
+    // Function to shuffle the card oder in the shoe.
     shuffle() {
+        // Exit if no cards in shoe.
+        if (!this.cards.length) {
+            return;
+        }
+
         let ul = this.querySelector(".cards");
 
         for (let i = ul.children.length; i >= 0; i--) {
@@ -38,8 +50,12 @@ class BlackjackShoe extends HTMLElement {
         }
     }
 
+    // Function to remove draw a card from the shoe.
     draw() {
-        if (!this.cards.length) return;
+        // Exit if no cards in shoe.
+        if (!this.cards.length) {
+            return;
+        }
 
         let card = this.cards[0];
         let li = card.parentElement.remove();
@@ -48,4 +64,4 @@ class BlackjackShoe extends HTMLElement {
     }
 }
 
-customElements.define("blackjack-shoe", BlackjackShoe);
+customElements.define("blackjack-shoe", BlackjackShoe); // Bind elements of <blackjack-shoe> to this class.
