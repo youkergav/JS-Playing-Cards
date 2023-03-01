@@ -85,34 +85,46 @@
     <script src="javascript/BlackjackShoe.js"></script>
 
     <script>
+        // Define global variables
         let shoe = document.querySelector("blackjack-shoe");
-
-        let hand = [];
-        let dealer = [];
         var playerHand = document.querySelector("blackjack-hand.player");
         var dealerHand = document.querySelector('blackjack-hand.dealer');
 
-        var counter = 0;
+        shoe.shuffle(); // Shuffle the cards in the shoe.
 
-        shoe.shuffle();
-
-        bankroll.oninput = function () {
-            balance.value = bankroll.value;
-        };
-
+        // Disable all buttons except the play button.
         document.getElementById("hit").disabled = true;
         document.getElementById("stand").disabled = true;
         document.getElementById("double").disabled = true;
         document.getElementById("split").disabled = true;
         document.getElementById("surrender").disabled = true;
 
-        function startGame() {
-            counter = counter++;
+        // TODO: Do we need these?
+        let hand = [];
+        let dealer = [];
+        var counter = 0;
 
+        // TODO: Document purpose.
+        bankroll.oninput = function () {
+            balance.value = bankroll.value;
+        };
+
+        // Attach event listeners to buttons.
+        document.getElementById("startGame").addEventListener("click", startGame);
+        document.getElementById("hit").addEventListener("click", hit);
+        document.getElementById("stand").addEventListener("click", stand);
+        document.getElementById("double").addEventListener("click", double);
+        document.getElementById("split").addEventListener("click", split);
+        document.getElementById("surrender").addEventListener("click", surrender);
+
+        function startGame() {
+            // Get betting information.
             let bankroll = document.getElementById("bankroll").value;
             let balance = document.getElementById("balance");
             let bet = document.getElementById("bet").value;
 
+            // TODO: Document purpose.
+            counter = counter++;
             if (counter = 1) { balance.setAttribute('value', bankroll); }
 
             // Remove card for all players.
@@ -129,7 +141,7 @@
             setTimeout(() => { document.querySelector("#playerValue").innerText = playerHand.calcScore(); }, 1200);
             setTimeout(() => { document.querySelector("#dealerValue").innerText = dealerHand.calcScore(); }, 1200);
 
-            // Disable buttons
+            // Disable setup input, and enable game buttons.
             document.getElementById("bankroll").disabled = true;
             document.getElementById("balance").disabled = true;
             document.getElementById("hit").disabled = false;
@@ -302,14 +314,6 @@
             document.getElementById("split").disabled = true;
             document.getElementById("surrender").disabled = true;
         }
-
-        // Attach event listeners to buttons
-        document.getElementById("startGame").addEventListener("click", startGame);
-        document.getElementById("hit").addEventListener("click", hit);
-        document.getElementById("stand").addEventListener("click", stand);
-        document.getElementById("double").addEventListener("click", double);
-        document.getElementById("split").addEventListener("click", split);
-        document.getElementById("surrender").addEventListener("click", surrender);
     </script>
 </body>
 
