@@ -25,14 +25,14 @@ class BlackjackCard extends BlackjackElement {
         return ["true", "t", "yes", "y", "1"].includes(this.dataset.facedown.toLowerCase());
     }
 
-    // Setter to update the facedown status (boolean).
-    set facedown(value) {
-        this.dataset.facedown = value;
-    }
-
     // Getter to get the card's UUID.
     get uuid() {
         return this.dataset.uuid;
+    }
+
+    // Setter to update the facedown status (boolean).
+    set facedown(value) {
+        this.dataset.facedown = value;
     }
 
     // Callback for when HTML element in created.
