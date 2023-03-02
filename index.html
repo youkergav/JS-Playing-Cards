@@ -43,7 +43,6 @@
         </tr>
         <tr>
             <td>
-                <!-- <table id="hand"></table> -->
                 <blackjack-hand class="player"></blackjack-hand>
             </td>
         </tr>
@@ -53,7 +52,6 @@
         </tr>
         <tr>
             <td>
-                <!-- <table id="dealer"></table> -->
                 <blackjack-hand class="dealer"></blackjack-hand>
             </td>
         </tr>
@@ -87,10 +85,12 @@
     <script>
         // Define global variables
         let shoe = document.querySelector("blackjack-shoe");
-        var playerHand = document.querySelector("blackjack-hand.player");
-        var dealerHand = document.querySelector('blackjack-hand.dealer');
-
-        shoe.shuffle(); // Shuffle the cards in the shoe.
+        let playerHand = document.querySelector("blackjack-hand.player");
+        let dealerHand = document.querySelector('blackjack-hand.dealer');
+        let bankroll = document.getElementById("bankroll").value;
+        let balance = document.getElementById("balance");
+        let bet = document.getElementById("bet").value;
+        let firstGame = true;
 
         // Disable all buttons except the play button.
         document.getElementById("hit").disabled = true;
@@ -99,16 +99,6 @@
         document.getElementById("split").disabled = true;
         document.getElementById("surrender").disabled = true;
 
-        // TODO: Do we need these?
-        let hand = [];
-        let dealer = [];
-        var counter = 0;
-
-        // TODO: Document purpose.
-        bankroll.oninput = function () {
-            balance.value = bankroll.value;
-        };
-
         // Attach event listeners to buttons.
         document.getElementById("startGame").addEventListener("click", startGame);
         document.getElementById("hit").addEventListener("click", hit);
@@ -116,17 +106,16 @@
         document.getElementById("double").addEventListener("click", double);
         document.getElementById("split").addEventListener("click", split);
         document.getElementById("surrender").addEventListener("click", surrender);
+        document.getElementById("bankroll").addEventListener("input", (event) => {
+            balance.value = event.target.value;
+        })
 
         function startGame() {
-            // Get betting information.
-            let bankroll = document.getElementById("bankroll").value;
-            let balance = document.getElementById("balance");
-            let bet = document.getElementById("bet").value;
-
-            // TODO: Document purpose.
-            counter = counter++;
-            if (counter = 1) {
+            if (firstGame) {
                 balance.setAttribute('value', bankroll);
+                shoe.shuffle(); // Shuffle the cards in the shoe.
+
+                firstGame = false;
             }
 
             // Remove card for all players.
