@@ -61,9 +61,7 @@ function hit() {
     // Add a card to the player's hand and update score. TODO: Check if there is a bust.
     playerHand.add(shoe.draw());
 
-    let score = setTimeout(() => { return document.querySelector("#playerValue").innerText }, 100);
-
-    console.log(score);
+    setTimeout(() => { document.querySelector("#playerValue").innerText = playerHand.calcScore() }, 100);
 }
 
 function stand() {
