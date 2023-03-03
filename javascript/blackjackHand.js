@@ -32,11 +32,10 @@ class BlackjackHand extends BlackjackElement {
         let li = this.querySelector(".cards").appendChild(document.createElement("li"));
         li.appendChild(card);
 
-        // TODO: Why is setTimeout needed?
         if (flip) {
             setTimeout(function () {
                 card.flip();
-            }.bind(this), 250);
+            }.bind(this), 0);
         }
     }
 
