@@ -44,8 +44,8 @@ function startGame() {
     setTimeout(() => { dealerHand.add(shoe.draw()) }, 600);
 
     // Calculate initial scores for all players.
-    setTimeout(() => { document.querySelector("#playerValue").innerText = playerHand.calcScore(); }, 500);
-    setTimeout(() => { document.querySelector("#dealerValue").innerText = dealerHand.calcScore(); }, 900);
+    setTimeout(() => { document.querySelector("#playerValue").innerText = playerHand.calcScore(); }, 600);
+    setTimeout(() => { document.querySelector("#dealerValue").innerText = dealerHand.calcScore(); }, 1000);
 
     // Disable setup input, and enable game buttons.
     document.getElementById("bankroll").disabled = true;
