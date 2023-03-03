@@ -35,7 +35,7 @@ class BlackjackHand extends BlackjackElement {
         if (flip) {
             setTimeout(function () {
                 card.flip();
-            }.bind(this), 0);
+            }.bind(this), 100);
         }
     }
 
