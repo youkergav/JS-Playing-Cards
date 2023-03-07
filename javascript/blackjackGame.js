@@ -2,17 +2,24 @@
 let shoe = document.querySelector("blackjack-shoe");
 let playerHand = document.querySelector("blackjack-hand.player");
 let dealerHand = document.querySelector('blackjack-hand.dealer');
-let bankroll = document.getElementById("bankroll").value;
+let bankroll = document.getElementById("bankroll");
 let balance = document.getElementById("balance");
 let bet = document.getElementById("bet").value;
 let firstGame = true;
 
+let hitButton = document.getElementById("hit");
+let standButton = document.getElementById("stand");
+let doubleButton = document.getElementById("double");
+let splitButton = document.getElementById("split");
+let surrenderButton = document.getElementById("surrender");
+
 // Disable all buttons except the play button.
-document.getElementById("hit").disabled = true;
-document.getElementById("stand").disabled = true;
-document.getElementById("double").disabled = true;
-document.getElementById("split").disabled = true;
-document.getElementById("surrender").disabled = true;
+hitButton.disabled = true;
+standButton.disabled = true;
+doubleButton.disabled = true;
+splitButton.disabled = true;
+surrenderButton.disabled = true;
+
 
 // Attach event listeners to buttons.
 document.getElementById("startGame").addEventListener("click", startGame);
@@ -27,7 +34,7 @@ document.getElementById("bankroll").addEventListener("input", (event) => {
 
 function startGame() {
     if (firstGame) {
-        balance.setAttribute('value', bankroll);
+        balance.setAttribute('value', bankroll.value);
         shoe.shuffle(); // Shuffle the cards in the shoe.
 
         firstGame = false;
@@ -48,20 +55,55 @@ function startGame() {
     setTimeout(() => { document.querySelector("#dealerValue").innerText = dealerHand.calcScore(); }, 1000);
 
     // Disable setup input, and enable game buttons.
-    document.getElementById("bankroll").disabled = true;
-    document.getElementById("balance").disabled = true;
-    document.getElementById("hit").disabled = false;
-    document.getElementById("stand").disabled = false;
-    document.getElementById("double").disabled = false;
-    document.getElementById("split").disabled = false;
-    document.getElementById("surrender").disabled = false;
+    bankroll.disabled = true;
+    balance.disabled = true;
+    hitButton.disabled = false;
+    standButton.disabled = false;
+    doubleButton.disabled = false;
+    splitButton.disabled = false;
+    surrenderButton.disabled = false;
+
 }
 
 function hit() {
     // Add a card to the player's hand and update score. TODO: Check if there is a bust.
     playerHand.add(shoe.draw());
 
-    setTimeout(() => { document.querySelector("#playerValue").innerText = playerHand.calcScore() }, 100);
+    setTimeout(() => {
+        document.querySelector("#playerValue").innerText = playerHand.calcScore();
+        if(playerHand.calcScore()[0] > 21) {
+            console.log("You busted, Dealer wins! You had: " + playerHand.calcScore()[0]);
+            
+            setTimeout(() => {
+                // Update and show dealer hand
+                dealerHand.cards[0].flip();
+                document.querySelector("#dealerValue").innerText = dealerHand.calcScore();
+            }, 500);
+
+            bankroll.disabled = true;
+            balance.disabled = true;
+            hitButton.disabled = true;
+            standButton.disabled = true;
+            doubleButton.disabled = true;
+            splitButton.disabled = true;
+            surrenderButton.disabled = true;
+        } else if(playerHand.calcScore()[0] == 21) {
+            setTimeout(() => {
+                // Update and show dealer hand
+                dealerHand.cards[0].flip();
+                document.querySelector("#dealerValue").innerText = dealerHand.calcScore();
+            }, 500);
+
+            console.log("You have: " + playerHand.calcScore()[0]);
+            bankroll.disabled = true;
+            balance.disabled = true;
+            hitButton.disabled = true;
+            standButton.disabled = true;
+            doubleButton.disabled = true;
+            splitButton.disabled = true;
+            surrenderButton.disabled = true;
+        }
+    }, 100);
 }
 
 function stand() {
